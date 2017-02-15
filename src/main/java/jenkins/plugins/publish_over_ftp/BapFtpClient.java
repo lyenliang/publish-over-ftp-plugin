@@ -68,7 +68,8 @@ public class BapFtpClient extends BPDefaultClient<BapFtpTransfer> {
 
     public boolean changeDirectory(final String directory) {
         try {
-            return ftpClient.changeWorkingDirectory(directory);
+			String dirIso = new String(directory.getBytes("UTF-8"),"iso-8859-1");
+            return ftpClient.changeWorkingDirectory(dirIso);
         } catch (IOException ioe) {
             throw new BapPublisherException(Messages.exception_cwdException(directory), ioe);
         }
@@ -77,7 +78,8 @@ public class BapFtpClient extends BPDefaultClient<BapFtpTransfer> {
     public boolean makeDirectory(final String directory) {
         try {
             if (disableMakeNestedDirs && directory.contains("/")) return false;
-            return ftpClient.makeDirectory(directory);
+			String dirIso = new String(directory.getBytes("UTF-8"),"iso-8859-1");
+            return ftpClient.makeDirectory(dirIso);
         } catch (IOException ioe) {
             throw new BapPublisherException(Messages.exception_mkdirException(directory), ioe);
         }
